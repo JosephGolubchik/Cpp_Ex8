@@ -283,15 +283,14 @@ const Point& Board::operator[](Point p) const{
 
 }
 
-void Board::free(){
+void Board::clear(){
     for(int i = 0; i < size; i++)
         delete[] pBoard[i];
-    if (size > 0)
-        delete[] pBoard;
+    delete[] pBoard;
 }
 
 Board::~Board(){
-	free();
+// 	clear();
 }
 
 
