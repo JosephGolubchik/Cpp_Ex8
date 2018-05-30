@@ -101,7 +101,7 @@ int** Board::makeX(int imgSize){
     }
     
     int diff = matSize/30;
-    int margin = (int)(matSize/8); 
+    int margin = (int)(matSize/7); 
     
     // Fill matrix
     for (int y = margin; y < matSize - margin; y++) {
@@ -220,13 +220,27 @@ ostream& operator<<(ostream& os, Board const& b) {
     return os;  
 }
 
-istream& operator>>(istream & is, Board const& b) {
-    // string s;
-    // cin >> s;
-    // Board temp{s.length()};
-    // temp >> is;
-    // return is; 
-}
+istream& operator>>(istream & is, Board& b) {  
+        string s;
+        is >> s;
+        int nsize = s.length();
+        
+        Board temp(nsize);
+        b.size = nsize;
+        // b.pBoard = temp.pBoard;
+        b.pBoard = temp.pBoard;
+        
+        for (int i = 0; i < nsize; i++) {
+            b.pBoard[0][i].data = s[i];
+        }
+        for (int j = 1; j < nsize; j++) {
+            is >> s;
+            for (int i = 0; i < nsize; i++) {
+                b.pBoard[j][i].data = s[i];
+            }
+        }
+        return is;  
+    }
 
 Point& Board::operator[](Point p){
     if(p.x < 0 || p.x >= size || p.y < 0 || p.y >= size){
@@ -251,18 +265,12 @@ const Point& Board::operator[](Point p) const{
 void Board::free(){
     for(int i = 0; i < size; i++)
         delete[] pBoard[i];
-    delete[] pBoard;
+    if (size > 0)
+        delete[] pBoard;
 }
 
-// void Board::free(){
-//     for(int i = 0; i < size; i++){
-//         delete[] pBoard[i];
-//     }
-//     delete[] pBoard;
-// }
-
 Board::~Board(){
-	free();
+// 	free();
 }
 
 
