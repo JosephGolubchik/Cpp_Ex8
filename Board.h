@@ -45,7 +45,7 @@ class Board {
         *this = b;
     }
     
-    char* draw(int imgSize);
+    string draw(int imgSize);
     void createBoard(int** finalMat, int imgSize);
     int** makeX(int imgSize);
     int** makeO(int imgSize);
@@ -61,3 +61,5 @@ class Board {
     void free();
     ~Board();
 };
+
+    bool fileExists (const string& filename);
