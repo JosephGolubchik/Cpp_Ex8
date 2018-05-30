@@ -291,7 +291,7 @@ void Board::free(){
 }
 
 Board::~Board(){
-// 	free();
+	free();
 }
 
 
