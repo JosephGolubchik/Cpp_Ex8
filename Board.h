@@ -12,6 +12,7 @@ class Board {
 
     Board() {
         size = 0;
+        pBoard = nullptr;
     }
 
     Board(int size){
@@ -58,7 +59,7 @@ class Board {
     Point& operator[](Point p);
     const Point& operator[](Point p) const;
     bool operator == (Board const & r);
-    void free();
+    void clear();
     ~Board();
 };
 
