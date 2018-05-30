@@ -5,12 +5,28 @@
 #include <math.h>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include <sys/stat.h>
+#include <unistd.h>
+#include <string>
 using namespace std;
 
 
-char* Board::draw(int imgSize){
+string Board::draw(int imgSize){
+    int i = 0;
+    string filename = "";
+    filename += to_string(i);
+    filename += ".ppm";
+
     
-    ofstream img ("img.ppm");
+    while ( fileExists(filename) ){
+        i++;
+        filename.clear();
+        filename = "";
+        filename += to_string(i);
+        filename += ".ppm";
+    }
+    
+    ofstream img (filename);
     
     int **finalMat = new int*[imgSize];
     for(int i = 0; i < imgSize; ++i) {
@@ -36,7 +52,7 @@ char* Board::draw(int imgSize){
         }
     }
     
-    return "img.ppm";
+    return filename;
 }
 
 void Board::createBoard(int** finalMat, int imgSize){
@@ -174,6 +190,11 @@ int** Board::makeWhite(int imgSize){
     
     return mat;
     
+}
+
+bool fileExists (const string& filename) {
+    ifstream f(filename.c_str());
+    return f.good();
 }
 
 Board& Board::operator=(const char w){
